@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thesis.user.dao.UserMapper">
+
+    <resultMap type="com.thesis.user.entity.User" id="UserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="createTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 添加用户 -->
+    <insert id="insertUser" parameterType="com.thesis.user.entity.User">
+        INSERT INTO user (username, password, email, phone, role)
+        VALUES (#{username}, #{password}, #{email}, #{phone}, #{role})
+    </insert>
+
+    <!-- 删除用户 -->
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM user WHERE user_id = #{userId}
+    </delete>
+
+    <!-- 修改用户 -->
+    <update id="updateUser" parameterType="com.thesis.user.entity.User">
+        UPDATE user
+        SET username = #{username},
+            password = #{password},
+            email = #{email},
+            phone = #{phone},
+            role = #{role}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 查看用户 -->
+    <select id="selectUser" resultMap="UserMap" parameterType="int">
+        SELECT user_id, username, password, email, phone, role, create_time, update_time
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+</mapper>

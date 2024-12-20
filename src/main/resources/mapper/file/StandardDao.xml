@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thesis.file.dao.StandardMapper">
+
+    <resultMap type="com.thesis.file.entity.ThesisWritingStandard" id="ThesisWritingStandardMap">
+        <result property="standardId" column="standard_id" jdbcType="INTEGER"/>
+        <result property="standardName" column="standard_name" jdbcType="VARCHAR"/>
+        <result property="fileId" column="file_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 提交论文撰写规范 -->
+    <insert id="insertThesisWritingStandard" parameterType="com.thesis.file.entity.ThesisWritingStandard">
+        INSERT INTO thesis_writing_standard (standard_name, file_id)
+        VALUES (#{standardName}, #{fileId})
+    </insert>
+
+    <!-- 删除论文撰写规范 -->
+    <delete id="deleteThesisWritingStandard" parameterType="int">
+        DELETE FROM thesis_writing_standard
+        WHERE standard_id = #{standardId}
+    </delete>
+
+    <!-- 修改论文撰写规范 -->
+    <update id="updateThesisWritingStandard" parameterType="com.thesis.file.entity.ThesisWritingStandard">
+        UPDATE thesis_writing_standard
+        SET standard_name = #{standardName},
+            file_id = #{fileId}
+        WHERE standard_id = #{standardId}
+    </update>
+
+    <!-- 获取论文撰写规范 -->
+    <select id="getThesisWritingStandard" resultMap="ThesisWritingStandardMap">
+        SELECT * FROM thesis_writing_standard
+        WHERE standard_id = 1
+    </select>
+</mapper>

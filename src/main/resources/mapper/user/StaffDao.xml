@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thesis.user.dao.StaffMapper">
+
+    <!-- ResultMap -->
+    <resultMap type="com.thesis.user.entity.Staff" id="StaffMap">
+        <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.thesis.user.vo.StaffDetailsVo" id="StaffDetailsMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 添加教职工 -->
+    <insert id="insertStaff" parameterType="com.thesis.user.entity.Staff">
+        INSERT INTO staff (staff_id, position)
+        VALUES (#{staffId}, #{position})
+    </insert>
+
+    <!-- 删除教职工 -->
+    <delete id="deleteStaff" parameterType="int">
+        DELETE FROM staff WHERE staff_id = #{staffId}
+    </delete>
+
+    <!-- 修改教职工 -->
+    <update id="updateStaff" parameterType="com.thesis.user.entity.Staff">
+        UPDATE staff
+        SET position = #{position}
+        WHERE staff_id = #{staffId}
+    </update>
+
+    <!-- 查看教职工 -->
+    <select id="selectStaffDetails" resultMap="StaffDetailsMap" parameterType="int">
+        SELECT user_id, username, email, phone, position
+        FROM staff_details
+        WHERE user_id = #{staffId}
+    </select>
+
+</mapper>

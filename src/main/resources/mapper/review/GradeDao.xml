@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thesis.review.dao.GradeMapper">
+
+    <resultMap type="com.thesis.review.vo.StudentGradesVo" id="StudentGradesMap">
+        <result property="studentId" column="student_id" jdbcType="INTEGER"/>
+        <result property="studentName" column="student_name" jdbcType="VARCHAR"/>
+        <result property="advisorScore" column="advisor_score" jdbcType="INTEGER"/>
+        <result property="reviewerScore" column="reviewer_score" jdbcType="INTEGER"/>
+        <result property="defenseScore" column="defense_score" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 修改学生成绩 -->
+    <update id="updateStudentGrades" parameterType="com.thesis.review.vo.StudentGradesVo">
+        UPDATE student_grades
+        SET advisor_score = #{advisorScore},
+            reviewer_score = #{reviewerScore},
+            defense_score = #{defenseScore}
+        WHERE student_id = #{studentId}
+    </update>
+
+    <!-- 获取所有学生的成绩 -->
+    <select id="getAllStudentGrades" resultMap="StudentGradesMap">
+        SELECT student_id, student_name, advisor_score, reviewer_score, defense_score
+        FROM student_grades
+    </select>
+
+    <!-- ID获取学生成绩 -->
+    <select id="getStudentGradesById" resultMap="StudentGradesMap">
+        SELECT student_id, student_name, advisor_score, reviewer_score, defense_score
+        FROM student_grades
+        WHERE student_id = #{studentId}
+    </select>
+</mapper>

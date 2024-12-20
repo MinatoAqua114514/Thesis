@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thesis.file.dao.StaffReportMapper">
+
+    <resultMap type="com.thesis.file.entity.TaskBook" id="TaskBookMap">
+        <result property="taskId" column="task_id" jdbcType="INTEGER"/>
+        <result property="studentId" column="student_id" jdbcType="INTEGER"/>
+        <result property="fileId" column="file_id" jdbcType="INTEGER"/>
+        <result property="taskName" column="task_name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="reviewOpinion" column="review_opinion" jdbcType="VARCHAR"/>
+        <result property="reviewStatus" column="review_status" jdbcType="INTEGER"/>
+        <result property="leaderOpinion" column="leader_opinion" jdbcType="VARCHAR"/>
+        <result property="leaderStatus" column="leader_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <!-- 1.课题任务书 -->
+
+    <!-- 提交课题任务书 -->
+    <insert id="insertTaskBook" parameterType="com.thesis.file.entity.TaskBook">
+        INSERT INTO task_book (student_id, description, file_id, task_name)
+        VALUES (#{studentId}, #{description}, #{fileId}, #{taskName})
+    </insert>
+
+    <!-- 删除课题任务书 -->
+    <delete id="deleteTaskBook" parameterType="int">
+        DELETE FROM task_book
+        WHERE task_id = #{taskId}
+    </delete>
+
+    <!-- 修改课题任务书 -->
+    <update id="updateTaskBook" parameterType="com.thesis.file.entity.TaskBook">
+        UPDATE task_book
+        SET task_name = #{taskName},
+            file_id = #{fileId}
+        WHERE task_id = #{taskId}
+    </update>
+
+    <!-- 指导老师获取课题任务书 -->
+    <select id="getTaskBook" resultMap="TaskBookMap">
+        SELECT *
+        FROM task_book tb
+        JOIN file f on f.file_id = tb.file_id
+        WHERE f.owner_id = #{advisorId}
+    </select>
+
+    <!-- 专业负责人提交审查意见 -->
+    <update id="updateReviewOpinion" parameterType="com.thesis.file.entity.TaskBook">
+        UPDATE task_book
+        SET review_opinion = #{reviewOpinion},
+            review_status = 1
+        WHERE task_id = #{taskId}
+    </update>
+
+    <!-- 院领导提交审查意见 -->
+    <update id="updateLeaderOpinion" parameterType="com.thesis.file.entity.TaskBook">
+        UPDATE task_book
+        SET leader_opinion = #{leaderOpinion},
+            leader_status = 1
+        WHERE task_id = #{taskId}
+    </update>
+</mapper>
