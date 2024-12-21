@@ -86,6 +86,14 @@
         WHERE topic_id = #{topicId}
     </update>
 
+    <!-- 学生ID获取选题申报信息 -->
+    <select id="selectTopicSubmissionByStudentId" resultMap="TopicSubmissionMap" parameterType="int">
+        SELECT topic_id, title, description, t.file_id, review_opinion, review_status, leader_opinion, leader_status
+        FROM topic_submission t
+        LEFT JOIN file on t.file_id = file.file_id
+        WHERE file.owner_id = #{studentId}
+    </select>
+
 
 
 
@@ -127,6 +135,14 @@
         WHERE report_id = #{reportId}
     </update>
 
+    <!-- 学生ID获取开题报告 -->
+    <select id="selectOpeningReportByStudentId" resultMap="OpeningReportMap" parameterType="int">
+        SELECT report_id, opening_name, description, o.file_id, review_opinion, review_status
+        FROM opening_report o
+        LEFT JOIN file on o.file_id = file.file_id
+        WHERE file.owner_id = #{studentId}
+    </select>
+
 
 
     <!-- 3. 中期报告 -->
@@ -159,6 +175,14 @@
         WHERE report_id = #{reportId}
     </select>
 
+    <!-- 学生ID获取中期报告 -->
+    <select id="selectMiddleReportByStudentId" resultMap="MiddleReportMap" parameterType="int">
+        SELECT report_id, middle_name, description, m.file_id
+        FROM middle_report m
+        LEFT JOIN file on m.file_id = file.file_id
+        WHERE file.owner_id = #{studentId}
+    </select>
+
 
 
     <!-- 4. 论文 -->
@@ -189,5 +213,13 @@
         SELECT thesis_id, thesis_name, description, file_id
         FROM thesis
         WHERE thesis_id = #{thesisId}
+    </select>
+
+    <!-- 学生ID获取论文 -->
+    <select id="selectThesisByStudentId" resultMap="ThesisMap" parameterType="int">
+        SELECT thesis_id, thesis_name, description, t.file_id
+        FROM thesis t
+        LEFT JOIN file on t.file_id = file.file_id
+        WHERE file.owner_id = #{studentId}
     </select>
 </mapper>

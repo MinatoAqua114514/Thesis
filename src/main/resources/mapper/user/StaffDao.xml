@@ -35,11 +35,31 @@
         WHERE staff_id = #{staffId}
     </update>
 
-    <!-- 查看教职工 -->
-    <select id="selectStaffDetails" resultMap="StaffDetailsMap" parameterType="int">
+    <!-- ID查看教职工详细信息 -->
+    <select id="selectStaffDetailsById" resultMap="StaffDetailsMap" parameterType="int">
         SELECT user_id, username, email, phone, position
         FROM staff_details
         WHERE user_id = #{staffId}
+    </select>
+
+    <!-- 获取所有教职工详细信息 -->
+    <select id="selectAllStaffDetails" resultMap="StaffDetailsMap">
+        SELECT user_id, username, email, phone, position
+        FROM staff_details
+    </select>
+
+    <!-- ID查询教职工是否存在 -->
+    <select id="existsById" resultType="boolean" parameterType="int">
+        SELECT COUNT(1)
+        FROM staff
+        WHERE staff_id = #{staffId}
+    </select>
+
+    <!-- ID查看教职工基本信息 -->
+    <select id="selectStaffById" resultMap="StaffMap" parameterType="int">
+        SELECT staff_id, position
+        FROM staff
+        WHERE staff_id = #{staffId}
     </select>
 
 </mapper>

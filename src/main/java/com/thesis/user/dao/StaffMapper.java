@@ -17,5 +17,11 @@ public interface StaffMapper {
 
     void updateStaff(Staff staff);
 
-    StaffDetailsVo selectStaffDetails(@Param("staffId") Integer staffId);
+    StaffDetailsVo selectStaffDetailsById(@Param("staffId") Integer staffId);
+
+    boolean existsById(@Param("staffId") Integer staffId);
+
+    Staff selectStaffById(@Param("staffId") Integer staffId);
+
+    List<StaffDetailsVo> selectAllStaffDetails();
 }

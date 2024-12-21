@@ -1,8 +1,13 @@
 package com.thesis.user.dao;
 
+import com.thesis.user.entity.Staff;
+import com.thesis.user.entity.Student;
 import com.thesis.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -14,5 +19,21 @@ public interface UserMapper {
 
     void updateUser(User user);
 
-    User selectUser(@Param("userId") Integer userId);
+    User selectUserById(@Param("userId") Integer userId);
+
+    boolean existsById(@Param("userId") Integer userId);
+
+    List<User> selectAllUser();
+
+
+
+
+    // 获取用户基本信息
+    User getUserInfo(@Param("userId") Integer userId);
+
+    // 获取学生信息
+    Student getStudentInfo(@Param("userId") Integer userId);
+
+    // 获取教职工信息
+    Staff getStaffInfo(@Param("userId") Integer userId);
 }

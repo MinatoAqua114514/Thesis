@@ -28,8 +28,8 @@
 
     <!-- 上传文件 -->
     <insert id="insertFile" parameterType="com.thesis.file.entity.File">
-        INSERT INTO file (file_name, file_type, owner_id, file_path)
-        VALUES (#{fileName}, #{fileType}, #{ownerId}, #{filePath})
+        INSERT INTO file (owner_id, file_name, file_path, file_type, create_time, update_time)
+        VALUES (#{ownerId}, #{fileName}, #{filePath}, #{fileType}, NOW(), NOW());
     </insert>
 
     <!-- 删除文件 -->
@@ -38,7 +38,7 @@
     </delete>
 
     <!-- 检查是否存在相同file_type的记录 -->
-    <select id="checkFileExist" resultType="java.lang.Integer" parameterType="map">
+    <select id="checkFileExist" resultType="java.lang.Integer" parameterType="com.thesis.file.entity.File">
         SELECT COUNT(*) FROM file
         WHERE file_type = #{fileType} AND owner_id = #{ownerId}
     </select>
@@ -51,17 +51,28 @@
     </update>
 
     <!-- 下载文件 -->
-    <select id="selectFile" resultMap="FileMap" parameterType="int">
+    <select id="selectFileById" resultMap="FileMap" parameterType="int">
         SELECT file_id, file_name, file_type, version, create_time, update_time, owner_id, file_path
         FROM file
         WHERE file_id = #{fileId}
     </select>
 
     <!-- 获取学生的所有文件 -->
-    <select id="getStudentFiles" resultMap="StudentFileMap" parameterType="int">
+    <select id="selectStudentFiles" resultMap="StudentFileMap" parameterType="int">
         SELECT student_id, student_name, file_id, file_name, file_type, version, create_time, update_time
         FROM student_files
         WHERE student_id = #{studentId}
+    </select>
+
+    <!-- 获取所有文件基本信息 -->
+    <select id="selectAllFiles" resultMap="FileMap">
+        SELECT file_id, file_name, file_type, version, create_time, update_time, owner_id, file_path
+        FROM file
+    </select>
+
+    <!-- 根据文件ID查询文件信息 -->
+    <select id="getFileById" resultType="com.thesis.file.entity.File">
+        SELECT * FROM file WHERE file_id = #{fileId};
     </select>
 
 </mapper>

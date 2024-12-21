@@ -67,6 +67,19 @@
         WHERE staff_id = #{advisorId}
     </select>
 
+    <!-- 查询学生是否有指导老师 -->
+    <select id="existsAdvisor" resultType="boolean" parameterType="int">
+        SELECT COUNT(1)
+        FROM student
+        WHERE student_id = #{studentId} AND advisor_id IS NOT NULL
+    </select>
+
+    <!-- 获取所有指导老师学生详细信息 -->
+    <select id="selectAllAdvisorStudents" resultMap="AdvisorStudentMap">
+        SELECT staff_id, advisor_name, student_id, student_name, grade, class
+        FROM advisor_students
+    </select>
+
 
     <!-- 2. 答辩小组 -->
 
@@ -95,6 +108,13 @@
         FROM defense_group dg
         JOIN user u ON dg.leader_id = u.user_id
         WHERE group_id = #{groupId}
+    </select>
+
+    <!-- 查看所有答辩小组 -->
+    <select id="selectAllDefenseGroups" resultMap="DefenseLeaderMap">
+        SELECT dg.group_id, dg.leader_id, u.username AS leader_name
+        FROM defense_group dg
+        JOIN user u ON dg.leader_id = u.user_id
     </select>
 
 

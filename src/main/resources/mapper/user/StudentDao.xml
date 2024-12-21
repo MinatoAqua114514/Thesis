@@ -41,11 +41,38 @@
         WHERE student_id = #{studentId}
     </update>
 
-    <!-- 查看学生 -->
-    <select id="selectStudentDetails" resultMap="StudentDetailsMap" parameterType="int">
+    <!-- 查看学生详细 -->
+    <select id="selectAllStudentDetails" resultMap="StudentDetailsMap" parameterType="int">
+        SELECT user_id, username, email, phone, grade, class, advisor_id, advisor_name
+        FROM student_details
+    </select>
+
+    <!-- 查看学生详细 -->
+    <select id="selectStudentDetailsById" resultMap="StudentDetailsMap" parameterType="int">
         SELECT user_id, username, email, phone, grade, class, advisor_id, advisor_name
         FROM student_details
         WHERE user_id = #{studentId}
+    </select>
+
+    <!-- ID查询学生是否存在 -->
+    <select id="existsById" resultType="boolean" parameterType="int">
+        SELECT COUNT(1)
+        FROM student
+        WHERE student_id = #{studentId}
+    </select>
+
+    <!-- ID查询学生信息 -->
+    <select id="selectStudentById" resultMap="StudentMap" parameterType="int">
+        SELECT student_id, grade, class, advisor_id
+        FROM student
+        WHERE student_id = #{studentId}
+    </select>
+
+    <!-- 获取指导学生详细信息 -->
+    <select id="selectStudentDetailsByAdvisorId" resultMap="StudentDetailsMap" parameterType="int">
+        SELECT user_id, username, email, phone, grade, class, advisor_id, advisor_name
+        FROM student_details
+        WHERE advisor_id = #{advisorId}
     </select>
 
 </mapper>

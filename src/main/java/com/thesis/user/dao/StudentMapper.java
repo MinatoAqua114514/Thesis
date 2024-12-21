@@ -5,15 +5,25 @@ import com.thesis.user.vo.StudentDetailsVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface StudentMapper {
 
     /*学生信息管理*/
     void insertStudent(Student student);
 
-    void deleteStudent(@Param("studentId") String studentId);
+    void deleteStudent(@Param("studentId") int studentId);
 
     void updateStudent(Student student);
 
-    StudentDetailsVo selectStudentDetails(@Param("studentId") String studentId);
+    List<StudentDetailsVo> selectAllStudentDetails();
+
+    StudentDetailsVo selectStudentDetailsById(@Param("studentId") int studentId);
+
+    boolean existsById(@Param("studentId") int studentId);
+
+    Student selectStudentById(@Param("studentId") int studentId);
+
+    List<StudentDetailsVo> selectStudentDetailsByAdvisorId(@Param("advisorId") int advisorId);
 }

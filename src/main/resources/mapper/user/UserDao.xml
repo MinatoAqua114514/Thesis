@@ -14,6 +14,18 @@
         <result property="updateTime" column="updated_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <resultMap type="com.thesis.user.entity.Staff" id="StaffMap">
+        <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.thesis.user.entity.Student" id="StudentMap">
+        <result property="studentId" column="student_id" jdbcType="INTEGER"/>
+        <result property="grade" column="grade" jdbcType="VARCHAR"/>
+        <result property="className" column="class" jdbcType="VARCHAR"/>
+        <result property="advisorId" column="advisor_id" jdbcType="INTEGER"/>
+    </resultMap>
+
     <!-- 添加用户 -->
     <insert id="insertUser" parameterType="com.thesis.user.entity.User">
         INSERT INTO user (username, password, email, phone, role)
@@ -36,10 +48,46 @@
         WHERE user_id = #{userId}
     </update>
 
-    <!-- 查看用户 -->
-    <select id="selectUser" resultMap="UserMap" parameterType="int">
+    <!-- ID查询用户 -->
+    <select id="selectUserById" resultMap="UserMap" parameterType="int">
         SELECT user_id, username, password, email, phone, role, create_time, update_time
         FROM user
         WHERE user_id = #{userId}
     </select>
+
+    <!-- ID查询用户是否存在 -->
+    <select id="existsById" resultType="boolean" parameterType="int">
+        SELECT COUNT(1)
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 查询所有用户 -->
+    <select id="selectAllUser" resultMap="UserMap">
+        SELECT user_id, username, password, email, phone, role, create_time, update_time
+        FROM user
+    </select>
+
+
+
+
+
+    <select id="getUserInfo" parameterType="int" resultMap="UserMap">
+        SELECT user_id, username, password, role
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="getStudentInfo" parameterType="int" resultMap="StudentMap">
+        SELECT student_id AS studentId, grade, class
+        FROM student
+        WHERE student_id = #{userId}
+    </select>
+
+    <select id="getStaffInfo" parameterType="int" resultMap="StaffMap">
+        SELECT staff_id, position
+        FROM staff
+        WHERE staff_id = #{userId}
+    </select>
+
 </mapper>

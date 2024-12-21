@@ -39,7 +39,7 @@
     </update>
 
     <!-- 指导老师获取课题任务书 -->
-    <select id="getTaskBook" resultMap="TaskBookMap">
+    <select id="selectTaskBook" resultMap="TaskBookMap">
         SELECT *
         FROM task_book tb
         JOIN file f on f.file_id = tb.file_id

@@ -30,8 +30,15 @@
     </update>
 
     <!-- 获取论文撰写规范 -->
-    <select id="getThesisWritingStandard" resultMap="ThesisWritingStandardMap">
+    <select id="selectThesisWritingStandard" resultMap="ThesisWritingStandardMap">
         SELECT * FROM thesis_writing_standard
         WHERE standard_id = 1
+    </select>
+
+    <!-- ID查询规范 -->
+    <select id="existsById" resultType="boolean" parameterType="int">
+        SELECT COUNT(1)
+        FROM thesis_writing_standard
+        WHERE standard_id = #{standardId}
     </select>
 </mapper>
