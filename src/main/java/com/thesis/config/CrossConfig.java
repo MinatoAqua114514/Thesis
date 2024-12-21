@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 允许来自任何源的请求访问，支持GET、POST、PUT和DELETE方法，并允许携带任何头部信息。
  * 同时，它启用了凭据（cookies）的传递，并设置了预检请求的有效时间为3600秒。
  */
+// https://blog.csdn.net/weixin_44985880/article/details/120620207
 @Configuration
 public class CrossConfig implements WebMvcConfigurer {
 
