@@ -1,8 +1,10 @@
 package com.thesis.common.response;
 
-/*
-* 统一返回结果
-*/
+/**
+ * 统一返回结果类，用于封装API响应的数据、状态码和消息。
+ *
+ * @param <T> 数据类型泛型，可根据实际需求传入具体类型。
+ */
 public class ApiResponse<T> {
     private int code;
     private String message;

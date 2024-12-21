@@ -5,6 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * 文件工具类，提供关于文件和目录的便捷操作方法。
+ */
 public class FileUtil {
 
     // 确保目录存在
