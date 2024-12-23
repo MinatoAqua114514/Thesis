@@ -35,4 +35,7 @@ public interface FileMapper {
 
     // 根据文件路径查找文件
     File selectFileByPath(String filePath);
+
+    // 文件路径获取文件ID
+    Integer selectFileIdByPath(String filePath);
 }

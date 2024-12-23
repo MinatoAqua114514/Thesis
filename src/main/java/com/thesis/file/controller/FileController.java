@@ -55,6 +55,10 @@ public class FileController {
 
             // 调用服务保存文件
             File uploadedFile = fileService.uploadFile(fileEntity, file.getBytes());
+
+            // 上传成功，文件路径获取文件ID，添加到返回值中
+            uploadedFile.setFileId(fileService.getFileIdByPath(uploadedFile.getFilePath()));
+
             return ApiResponse.success(uploadedFile);
         } catch (Exception e) {
             return ApiResponse.error(400, e.getMessage(), null);

@@ -103,4 +103,12 @@ public class FileService {
         }
         return fileMapper.getFileById(fileId); // 从数据库查询文件信息
     }
+
+    // 根据文件路径查找文件ID
+    public Integer getFileIdByPath(String filePath) {
+        if (fileMapper.selectFileByPath(filePath) == null) {
+            throw new RuntimeException("未找到路径为: " + filePath + "的文件");
+        }
+        return fileMapper.selectFileIdByPath(filePath);
+    }
 }

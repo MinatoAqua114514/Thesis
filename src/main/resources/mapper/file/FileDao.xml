@@ -80,4 +80,9 @@
         SELECT * FROM file WHERE file_path = #{filePath};
     </select>
 
+    <!-- 文件路径获取文件ID -->
+    <select id="selectFileIdByPath" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT file_id FROM file WHERE file_path = #{filePath};
+    </select>
+
 </mapper>
