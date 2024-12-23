@@ -1,6 +1,7 @@
 package com.thesis.user.controller;
 
 import com.thesis.common.response.ApiResponse;
+import com.thesis.user.dto.AddStuInfoDTO;
 import com.thesis.user.entity.Student;
 import com.thesis.user.service.StudentService;
 import com.thesis.user.vo.StudentDetailsVo;
@@ -23,7 +24,7 @@ public class StudentController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/add")
-    public ApiResponse<Void> addStudent(@RequestBody Student student) {
+    public ApiResponse<Void> addStudent(@RequestBody AddStuInfoDTO student) {
         try {
             studentService.addStudent(student);
         } catch (Exception e) {

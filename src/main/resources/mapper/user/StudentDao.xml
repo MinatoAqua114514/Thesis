@@ -22,9 +22,9 @@
     </resultMap>
 
     <!-- 添加学生 -->
-    <insert id="insertStudent" parameterType="com.thesis.user.entity.Student">
+    <insert id="insertStudent" parameterType="com.thesis.user.dto.AddStuInfoDTO">
         INSERT INTO student (student_id, grade, class)
-        VALUES (#{studentId}, #{grade}, #{class})
+        VALUES (#{studentId}, #{grade}, #{className})
     </insert>
 
     <!-- 删除学生 -->

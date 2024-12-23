@@ -1,10 +1,8 @@
 package com.thesis.user.service;
 
-import com.thesis.common.response.ApiResponse;
 import com.thesis.user.dao.StudentMapper;
-import com.thesis.user.dto.AddStudentDTO;
+import com.thesis.user.dto.AddStuInfoDTO;
 import com.thesis.user.entity.Student;
-import com.thesis.user.entity.User;
 import com.thesis.user.vo.StudentDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +18,11 @@ public class StudentService {
     private UserService userService;
 
     // 添加学生信息 FOR 管理员
-    public void addStudent(Student student) {
-        if (studentMapper.existsById(student.getStudentId())) {
+    public void addStudent(AddStuInfoDTO addStuInfoDTO) {
+        if (studentMapper.existsById(addStuInfoDTO.getStudentId())) {
             throw new RuntimeException("添加失败，学生已存在");
         }
-        studentMapper.insertStudent(student);
+        studentMapper.insertStudent(addStuInfoDTO);
     }
 
     // 删除学生信息 FOR 管理员
@@ -65,7 +63,7 @@ public class StudentService {
     }
 
 
-    // 添加学生基础信息
+    /*// 添加学生基础信息
     public ApiResponse<Void> addStudentUser(AddStudentDTO addStudentDTO) {
         if (addStudentDTO == null) {
             return ApiResponse.error(404, "学生信息不能为空", null);
@@ -95,6 +93,6 @@ public class StudentService {
             return ApiResponse.error(404, "学生创建失败，ByStudentService", null);
         }
         return ApiResponse.success(studentId);
-    }
+    }*/
 
 }

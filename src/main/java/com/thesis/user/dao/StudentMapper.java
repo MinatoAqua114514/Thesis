@@ -1,5 +1,6 @@
 package com.thesis.user.dao;
 
+import com.thesis.user.dto.AddStuInfoDTO;
 import com.thesis.user.entity.Student;
 import com.thesis.user.vo.StudentDetailsVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface StudentMapper {
 
     /*学生信息管理*/
-    void insertStudent(Student student);
+    void insertStudent(AddStuInfoDTO addStuInfoDTO);
 
     void deleteStudent(@Param("studentId") int studentId);
 
