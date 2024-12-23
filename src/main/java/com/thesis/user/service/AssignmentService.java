@@ -115,11 +115,11 @@ public class AssignmentService {
 
     // 获取所有答辩小组的信息 FOR 管理员
     public List<DefenseDTO> findAllDefenseGroups() {
-    List<DefenseDTO> defenseGroups = assignmentMapper.selectAllDefenseGroups();
-    for (DefenseDTO defenseGroup : defenseGroups) {
-        List<DefenseGroupMembersVo> members = assignmentMapper.selectDefenseGroupMembers(defenseGroup.getGroupId());
-        defenseGroup.setMembers(members);
-    }
+        List<DefenseDTO> defenseGroups = assignmentMapper.selectAllDefenseGroups();
+        for (DefenseDTO defenseGroup : defenseGroups) {
+            List<DefenseGroupMembersVo> members = assignmentMapper.selectDefenseGroupMembers(defenseGroup.getGroupId());
+            defenseGroup.setMembers(members);
+        }
         return defenseGroups;
     }
 
@@ -141,7 +141,7 @@ public class AssignmentService {
         if (assignmentMapper.selectDefenseGroup(groupId) == null) {
             throw new RuntimeException("当前答辩小组不存在");
         }
-        if (assignmentMapper.selectDefenseGroup(memberId) == null) {
+        if (!assignmentMapper.existsDefenseGroupMember(groupId, memberId)) {
             throw new RuntimeException("当前成员不存在");
         }
         if (assignmentMapper.selectDefenseGroup(groupId).getLeaderId() == memberId) {
@@ -151,11 +151,11 @@ public class AssignmentService {
     }
 
     // 为小组成员重新分配小组 FOR 管理员
-    public void updateDefenseGroupMember(DefenseGroupMember defenseGroupMember) {
-        if (assignmentMapper.selectDefenseGroup(defenseGroupMember.getGroupId()) == null) {
+    public void updateDefenseGroupMember(Integer newGroupId, Integer memberId) {
+        if (assignmentMapper.selectDefenseGroup(newGroupId) == null) {
             throw new RuntimeException("当前答辩小组不存在");
         }
-        assignmentMapper.updateDefenseGroupMember(defenseGroupMember);
+        assignmentMapper.updateDefenseGroupMember(newGroupId, memberId);
     }
 
     // 查看多个答辩小组的成员信息 FOR 组长、管理员

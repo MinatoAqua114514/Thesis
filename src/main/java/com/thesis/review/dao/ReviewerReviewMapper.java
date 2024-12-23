@@ -18,5 +18,5 @@ public interface ReviewerReviewMapper {
     void updateReviewerReview(ReviewerReview reviewerReview);
 
     // 查询评阅教师审阅表
-    ReviewerReviewDetailsVo selectReviewerReview(@Param("reviewerId") Integer reviewerId);
+    ReviewerReviewDetailsVo selectReviewerReview(@Param("reviewId") Integer reviewId);
 }

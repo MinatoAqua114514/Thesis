@@ -82,4 +82,17 @@ public class ReviewerReview {
     public void setIsPass(String isPass) {
         this.isPass = isPass;
     }
+
+    @Override
+    public String toString() {
+        return "ReviewerReview{" +
+                "reviewId=" + reviewId +
+                ", reviewName='" + reviewName + '\'' +
+                ", description='" + description + '\'' +
+                ", studentId=" + studentId +
+                ", fileId=" + fileId +
+                ", score=" + score +
+                ", isPass='" + isPass + '\'' +
+                '}';
+    }
 }

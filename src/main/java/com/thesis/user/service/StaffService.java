@@ -21,7 +21,7 @@ public class StaffService {
     public void addStaff(Staff staff) {
         // 判断staffID是否是教职工角色
         String staffRole = userMapper.getUserInfo(staff.getStaffId()).getRole();
-        if (!staffRole.equals("staff")) {
+        if (!staffRole.equals("教职工")) {
             throw new RuntimeException("添加失败，该ID不是教职工");
         }
         if (staffMapper.existsById(staff.getStaffId())) {

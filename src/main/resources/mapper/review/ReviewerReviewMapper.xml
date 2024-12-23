@@ -42,18 +42,16 @@
         UPDATE reviewer_review
         SET review_name = #{reviewName},
             description = #{description},
-            student_id = #{studentId},
-            file_id = #{fileId},
             score = #{score},
             is_pass = #{isPass}
         WHERE review_id = #{reviewId}
     </update>
 
-    <!-- 查看评阅教师审阅表 -->
+    <!-- 审阅表ID查看评阅教师审阅表 -->
     <select id="selectReviewerReview" resultMap="ReviewerReviewDetailsMap">
-        SELECT review_id, student_id, reviewer_id, file_id, is_pass, student_name, reviewer_name, file_name, file_path, version, create_time, update_time
+        SELECT review_id, student_id, reviewer_id, file_id, is_pass, student_name, reviewer_name, file_name, file_path
         FROM reviewer_review_details
-        WHERE reviewer_id = #{reviewerId}
+        WHERE review_Id = #{reviewId}
     </select>
 
 </mapper>

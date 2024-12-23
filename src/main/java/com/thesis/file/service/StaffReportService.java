@@ -47,11 +47,11 @@ public class StaffReportService {
     }
 
     // ID获取单个指导老师的课题任务书 FOR 管理员、指导老师
-    public TaskBook findTaskBook(Integer advisorId) {
-        if (advisorId == null) {
+    public TaskBook findTaskBook(Integer taskBookId) {
+        if (taskBookId == null) {
             throw new RuntimeException("advisorId不能为空");
         }
-        TaskBook taskBook = staffReportMapper.selectTaskBook(advisorId);
+        TaskBook taskBook = staffReportMapper.selectTaskBook(taskBookId);
         if (taskBook == null) {
             throw new RuntimeException("该课题任务书不存在");
         }
@@ -76,6 +76,8 @@ public class StaffReportService {
 
     // 院领导审查 FOR 院领导
     public void updateLeaderOpinion(TaskBook taskBook) {
+        // 打印taskBook的ID到控制台
+        System.out.println(taskBook.getTaskId());
         if (taskBook.getTaskId() == null) {
             throw new RuntimeException("taskId不能为空");
         }

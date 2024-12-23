@@ -13,11 +13,15 @@
 
     <!-- 修改学生成绩 -->
     <update id="updateStudentGrades" parameterType="com.thesis.review.vo.StudentGradesVo">
-        UPDATE student_grades
-        SET advisor_score = #{advisorScore},
-            reviewer_score = #{reviewerScore},
-            defense_score = #{defenseScore}
-        WHERE student_id = #{studentId}
+        UPDATE student s
+            JOIN user u ON s.student_id = u.user_id
+            LEFT JOIN advisor_review ar ON s.student_id = ar.student_id
+            LEFT JOIN reviewer_review rr ON s.student_id = rr.student_id
+            LEFT JOIN defense_review dr ON s.student_id = dr.student_id
+        SET ar.score = #{advisorScore},
+            rr.score = #{reviewerScore},
+            dr.score = #{defenseScore}
+        WHERE s.student_id = #{studentId};
     </update>
 
     <!-- 获取所有学生的成绩 -->

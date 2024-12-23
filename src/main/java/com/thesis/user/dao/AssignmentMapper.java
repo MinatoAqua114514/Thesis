@@ -40,6 +40,9 @@ public interface AssignmentMapper {
 
     List<DefenseDTO> selectAllDefenseGroups();
 
+    // 查看小组中是否有这个成员
+    boolean existsDefenseGroupMember(@Param("groupId") Integer groupId, @Param("memberId") Integer memberId);
+
 
 
 
@@ -49,7 +52,7 @@ public interface AssignmentMapper {
 
     void deleteDefenseGroupMember(@Param("groupId") Integer groupId, @Param("memberId") Integer memberId);
 
-    void updateDefenseGroupMember(DefenseGroupMember defenseGroupMember);
+    void updateDefenseGroupMember(@Param("newGroupId") Integer newGroupId, @Param("memberId") Integer memberId);
 
     List<DefenseGroupMembersVo> selectDefenseGroupMembers(@Param("groupId") Integer groupId);
 }

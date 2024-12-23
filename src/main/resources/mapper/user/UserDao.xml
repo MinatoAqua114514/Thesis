@@ -10,8 +10,6 @@
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
-        <result property="createTime" column="created_time" jdbcType="TIMESTAMP"/>
-        <result property="updateTime" column="updated_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <resultMap type="com.thesis.user.entity.Staff" id="StaffMap">
@@ -64,7 +62,7 @@
 
     <!-- 查询所有用户 -->
     <select id="selectAllUser" resultMap="UserMap">
-        SELECT user_id, username, password, email, phone, role, create_time, update_time
+        SELECT user_id, username, password, email, phone, role
         FROM user
     </select>
 

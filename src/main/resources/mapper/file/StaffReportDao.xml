@@ -46,12 +46,11 @@
     </select>
 
 
-    <!-- 指导老师获取课题任务书 -->
+    <!-- 任务书ID获取任务书 -->
     <select id="selectTaskBook" resultMap="TaskBookMap">
         SELECT *
         FROM task_book tb
-        JOIN file f on f.file_id = tb.file_id
-        WHERE f.owner_id = #{advisorId}
+        WHERE task_id = #{taskBookId}
     </select>
 
     <!-- 专业负责人提交审查意见 -->

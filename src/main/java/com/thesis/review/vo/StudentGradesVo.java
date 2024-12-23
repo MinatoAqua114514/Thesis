@@ -16,7 +16,7 @@ public class StudentGradesVo {
     private Integer advisorScore;
 
     @Column(name = "reviewer_score")
-    private String reviewerScore;
+    private Integer reviewerScore;
 
     @Column(name = "defense_score")
     private Integer defenseScore;
@@ -45,11 +45,11 @@ public class StudentGradesVo {
         this.advisorScore = advisorScore;
     }
 
-    public String getReviewerScore() {
+    public Integer getReviewerScore() {
         return reviewerScore;
     }
 
-    public void setReviewerScore(String reviewerScore) {
+    public void setReviewerScore(Integer reviewerScore) {
         this.reviewerScore = reviewerScore;
     }
 

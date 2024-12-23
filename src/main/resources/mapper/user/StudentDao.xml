@@ -36,7 +36,7 @@
     <update id="updateStudent" parameterType="com.thesis.user.entity.Student">
         UPDATE student
         SET grade = #{grade},
-            class = #{class},
+            class = #{className},
             advisor_id = #{advisorId}
         WHERE student_id = #{studentId}
     </update>

@@ -220,16 +220,18 @@ public class AssignmentController {
         return ApiResponse.success(null);
     }
 
+
     /**
-     * 更新答辩小组成员
+     * 更新答辩小组成员信息。
      *
-     * @param defenseGroupMember 答辩小组成员实体对象，包含答辩小组成员的详细信息
-     * @return ApiResponse<Void> 更新操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
+     * @param newGroupId 新的答辩小组ID。
+     * @param memberId 需要更新的成员ID。
+     * @return 如果操作成功，返回一个表示成功的ApiResponse对象；如果操作失败，返回包含错误信息的ApiResponse对象。
      */
     @PutMapping("/updateMember")
-    public ApiResponse<Void> updateDefenseGroupMember(DefenseGroupMember defenseGroupMember) {
+    public ApiResponse<Void> updateDefenseGroupMember(@RequestParam int newGroupId, @RequestParam int memberId) {
         try {
-            assignmentService.updateDefenseGroupMember(defenseGroupMember);
+            assignmentService.updateDefenseGroupMember(newGroupId, memberId);
         } catch (Exception e) {
             return ApiResponse.error(404, e.getMessage(), null);
         }

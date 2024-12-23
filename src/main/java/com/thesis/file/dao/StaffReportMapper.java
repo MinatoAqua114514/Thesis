@@ -19,7 +19,7 @@ public interface StaffReportMapper {
     void updateTaskBook(TaskBook taskBook);
 
     // 获取指导老师的课题任务书
-    TaskBook selectTaskBook(@Param("advisorId") Integer advisorId);
+    TaskBook selectTaskBook(@Param("taskBookId") Integer taskBookId);
 
     // 获取所有课题任务书
     List<TaskBook> selectAllTaskBook();

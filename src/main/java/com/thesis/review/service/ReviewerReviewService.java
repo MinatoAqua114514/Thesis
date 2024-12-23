@@ -25,6 +25,7 @@ public class ReviewerReviewService {
         if (reviewId == null) {
             throw new RuntimeException("reviewId不能为空");
         }
+
         if (reviewerReviewMapper.selectReviewerReview(reviewId) == null) {
             throw new RuntimeException("该审阅表不存在");
         }

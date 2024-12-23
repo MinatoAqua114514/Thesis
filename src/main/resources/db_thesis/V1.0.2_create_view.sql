@@ -19,17 +19,19 @@ where
     u.role = '学生';
 
 -- 教职工详细信息视图
-create view staff_details as
-select
+CREATE VIEW staff_details AS
+SELECT
     u.user_id,
     u.username,
     u.email,
     u.phone,
-    coalesce(s.position, '未分配职位') as position
-from
+    COALESCE(s.position, '未分配职位') AS position
+FROM
     user u
-        left join
-    staff s on u.user_id = s.staff_id;
+LEFT JOIN
+    staff s ON u.user_id = s.staff_id
+WHERE
+    u.role = '教职工';
 
 -- 学生文件信息视图
 create view student_files as
@@ -139,21 +141,21 @@ join
 
 -- 学生成绩管理视图
 create view student_grades as
-select 
+select
     s.student_id,
     u.username as student_name,
     ar.score as advisor_score,
     rr.score as reviewer_score,
     dr.score as defense_score
-from 
+from
     student s
-join 
+join
     user u on s.student_id = u.user_id
-left join 
+left join
     advisor_review ar on s.student_id = ar.student_id
-left join 
+left join
     reviewer_review rr on s.student_id = rr.student_id
-left join 
+left join
     defense_review dr on s.student_id = dr.student_id;
 
 
