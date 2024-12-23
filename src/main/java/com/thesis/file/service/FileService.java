@@ -89,7 +89,11 @@ public class FileService {
 
         // 设置文件路径并插入数据库
         file.setFilePath(filePath);
-        fileMapper.insertFile(file);
+        try {
+            fileMapper.insertFile(file);
+        } catch (Exception e) {
+            throw new Exception("上传文件失败，当前文件名的文件已存在", e);
+        }
 
         // 返回上传文件的ID
         file.setFileId(fileMapper.selectFileByPath(filePath).getFileId());

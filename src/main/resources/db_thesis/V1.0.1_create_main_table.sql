@@ -60,7 +60,7 @@ create table if not exists file
     file_id int auto_increment primary key, -- 主键，文件编号
     owner_id int not null, -- 拥有者编号(关联user.user_id)
     file_name varchar(255) not null, -- 文件名
-    file_path varchar(255) not null, -- 文件路径
+    file_path varchar(255) not null unique, -- 文件路径
     file_type enum('论文撰写规范','选题申报表', '开题报告', '中期报告', '论文', '课题任务书', '指导教师审阅表', '评阅教师审阅表', '答辩评审表') not null, -- 文件类型
     version int not null default 1, -- 版本号
     create_time timestamp default current_timestamp,

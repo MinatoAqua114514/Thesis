@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -36,4 +35,7 @@ public interface UserMapper {
 
     // 获取教职工信息
     Staff getStaffInfo(@Param("userId") Integer userId);
+
+    // 用户名获取用户信息
+    User selectUserByUsername(@Param("username") String username);
 }

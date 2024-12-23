@@ -90,4 +90,11 @@
         WHERE staff_id = #{userId}
     </select>
 
+    <!-- 用户名获取用户信息 -->
+    <select id="selectUserByUsername" resultMap="UserMap" parameterType="String">
+        SELECT user_id, username, password, email, phone, role, create_time, update_time
+        FROM user
+        WHERE username = #{username}
+    </select>
+
 </mapper>

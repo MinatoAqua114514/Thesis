@@ -59,6 +59,11 @@ public class UserService {
         return userMapper.selectAllUser();
     }
 
+    // 更具用户名查找用户信息
+    public User getUserByUsername(String username) {
+        return userMapper.selectUserByUsername(username);
+    }
+
 
 
 

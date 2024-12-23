@@ -59,13 +59,16 @@ public class UserController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/add")
-    public ApiResponse<Void> addUser(@RequestBody User user) {
+    public ApiResponse<User> addUser(@RequestBody User user) {
         try {
             userService.addUser(user);
         } catch (Exception e) {
             return ApiResponse.error(400, e.getMessage(), null);
         }
-        return ApiResponse.success(null);
+        user.setUserId(userService.getUserByUsername(user.getUsername()).getUserId());
+        user.setUsername(user.getUsername());
+        user.setRole(user.getRole());
+        return ApiResponse.success(user);
     }
 
     /**
