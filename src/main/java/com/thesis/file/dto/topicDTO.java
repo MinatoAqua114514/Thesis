@@ -2,21 +2,21 @@ package com.thesis.file.dto;
 
 public class topicDTO {
 
-    public String studentId;
+    public Integer studentId;
 
     public String username;
 
-    public String topicId;
+    public Integer topicId;
 
     public String topicTitle;
 
     public String topicStatus;
 
-    public String getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -28,11 +28,11 @@ public class topicDTO {
         this.username = username;
     }
 
-    public String getTopicId() {
+    public Integer getTopicId() {
         return topicId;
     }
 
-    public void setTopicId(String topicId) {
+    public void setTopicId(Integer topicId) {
         this.topicId = topicId;
     }
 
