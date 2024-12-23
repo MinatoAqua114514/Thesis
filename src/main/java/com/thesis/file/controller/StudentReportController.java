@@ -2,6 +2,8 @@ package com.thesis.file.controller;
 
 import com.thesis.common.response.ApiResponse;
 import com.thesis.file.dto.FileStatusDTO;
+import com.thesis.file.dto.openingDTO;
+import com.thesis.file.dto.topicDTO;
 import com.thesis.file.entity.MiddleReport;
 import com.thesis.file.entity.OpeningReport;
 import com.thesis.file.entity.Thesis;
@@ -131,6 +133,22 @@ public class StudentReportController {
     }
 
 
+    /**
+     * 审批用选题报告视图信息
+     *
+     * @return ApiResponse<List < topicDTO>> 返回话题视图数据的响应，成功时包含数据列表，失败时包含错误信息
+     */
+    @GetMapping("/topicView")
+    public ApiResponse<List<topicDTO>> getTopicView() {
+        try {
+            studentReportService.getTopicView();
+        } catch (Exception e) {
+            return ApiResponse.error(404, "getTopicView失败", null);
+        }
+        return ApiResponse.success(studentReportService.getTopicView());
+    }
+
+
 
 
 
@@ -227,6 +245,21 @@ public class StudentReportController {
             return ApiResponse.error(404, e.getMessage(), null);
         }
         return ApiResponse.success(null);
+    }
+
+    /**
+     * 审批用开题视图数据
+     *
+     * @return ApiResponse<List < OpeningDTO>> 返回开场视图数据的响应，成功时包含数据列表，失败时包含错误信息
+     */
+    @GetMapping("/openingView")
+    public ApiResponse<List<openingDTO>> getOpeningView() {
+        try {
+            studentReportService.getOpeningView();
+        } catch (Exception e) {
+            return ApiResponse.error(404, "getOpeningView失败", null);
+        }
+        return ApiResponse.success(studentReportService.getOpeningView());
     }
 
 

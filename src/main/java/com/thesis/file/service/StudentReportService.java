@@ -2,6 +2,8 @@ package com.thesis.file.service;
 
 import com.thesis.file.dto.FileStatusDTO;
 import com.thesis.file.dao.StudentReportMapper;
+import com.thesis.file.dto.openingDTO;
+import com.thesis.file.dto.topicDTO;
 import com.thesis.file.entity.MiddleReport;
 import com.thesis.file.entity.OpeningReport;
 import com.thesis.file.entity.Thesis;
@@ -96,6 +98,10 @@ public class StudentReportService {
         studentReportMapper.updateLeaderOpinion(topicSubmission);
     }
 
+    public List<topicDTO> getTopicView(){
+        return studentReportMapper.selectTopicView();
+    }
+
 
 
     /* 2.开题报告 */
@@ -161,6 +167,10 @@ public class StudentReportService {
             throw new RuntimeException("该开题报告不存在");
         }
         studentReportMapper.updateOpeningReviewOpinion(openingReport);
+    }
+
+    public List<openingDTO> getOpeningView(){
+        return studentReportMapper.selectOpeningView();
     }
 
 

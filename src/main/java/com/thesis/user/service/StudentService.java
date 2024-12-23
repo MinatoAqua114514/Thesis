@@ -1,7 +1,10 @@
 package com.thesis.user.service;
 
+import com.thesis.common.response.ApiResponse;
 import com.thesis.user.dao.StudentMapper;
+import com.thesis.user.dto.AddStudentDTO;
 import com.thesis.user.entity.Student;
+import com.thesis.user.entity.User;
 import com.thesis.user.vo.StudentDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,8 @@ public class StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private UserService userService;
 
     // 添加学生信息 FOR 管理员
     public void addStudent(Student student) {
@@ -58,4 +63,38 @@ public class StudentService {
     public List<StudentDetailsVo> findAllStudentDetails() {
         return studentMapper.selectAllStudentDetails();
     }
+
+
+    // 添加学生基础信息
+    public ApiResponse<Void> addStudentUser(AddStudentDTO addStudentDTO) {
+        if (addStudentDTO == null) {
+            return ApiResponse.error(404, "学生信息不能为空", null);
+        }
+        User studentUser = new User();
+        studentUser.setUsername(addStudentDTO.getName());
+        studentUser.setRole("学生");
+        try {
+            userService.addUser(studentUser);
+        } catch (Exception e) {
+            return ApiResponse.error(404, "用户基础信息创建失败，请查看学生基础信息是否有误", null);
+        }
+        return ApiResponse.success(null);
+    }
+
+    // 使用学生基础信息添加新的学生
+    public ApiResponse<Integer> addNewStudentByUser(AddStudentDTO addStudentDTO) {
+        // 获取创建成功的学生ID
+        int studentId = userService.getUserByUsername(addStudentDTO.getName()).getUserId();
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setGrade(addStudentDTO.getGrade());
+        student.setClassName(addStudentDTO.getClassName());
+        try {
+            addStudent(student);
+        } catch (Exception e) {
+            return ApiResponse.error(404, "学生创建失败，ByStudentService", null);
+        }
+        return ApiResponse.success(studentId);
+    }
+
 }

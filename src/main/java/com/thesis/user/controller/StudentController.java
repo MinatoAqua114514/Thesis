@@ -103,9 +103,29 @@ public class StudentController {
     @GetMapping("/allDetails")
     public ApiResponse<List<StudentDetailsVo>> findAllStudentDetails() {
         try {
-            return ApiResponse.success(studentService.findAllStudentDetails());
+            studentService.findAllStudentDetails();
         } catch (Exception e) {
             return ApiResponse.error(404, e.getMessage(), null);
         }
+        return ApiResponse.success(studentService.findAllStudentDetails());
     }
+
+
+    /*@PostMapping("/addStudent")
+    public ApiResponse<StudentDetailsVo> addNewStudent(AddStudentDTO addStudentDTO) {
+        try {
+            studentService.addStudentUser(addStudentDTO);
+        } catch (Exception e) {
+            return ApiResponse.error(404, e.getMessage(), null);
+        }
+
+        // 获取创建成功的学生ID
+        int studentId = userService.getUserByUsername(addStudentDTO.getName()).getUserId();
+
+        try {
+            return ApiResponse.success(studentService.findStudentDetailsById(studentId));
+        } catch (Exception e) {
+            return ApiResponse.error(404, e.getMessage(), null);
+        }
+    }*/
 }

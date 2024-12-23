@@ -8,7 +8,7 @@ select
     s.grade,
     s.class,
     s.advisor_id,
-    coalesce(st.username, '未分配') as advisor_name
+    coalesce(st.username, '未分配指导老师') as advisor_name
 from
     user u
         left join
@@ -20,15 +20,15 @@ where
 
 -- 教职工详细信息视图
 create view staff_details as
-select 
+select
     u.user_id,
     u.username,
     u.email,
     u.phone,
-    s.position
-from 
+    coalesce(s.position, '未分配职位') as position
+from
     user u
-join 
+        left join
     staff s on u.user_id = s.staff_id;
 
 -- 学生文件信息视图
@@ -215,3 +215,58 @@ WHERE
     u.role = '学生'
 GROUP BY
     u.user_id, u.username;
+
+
+
+
+
+-- 学生选题申报视图
+CREATE VIEW topicView AS
+SELECT
+    u.user_id,
+    u.username,
+    IF(MAX(ts.topic_id) IS NOT NULL, '已提交', '未提交') AS topic_submission_status,
+    COALESCE(MAX(ts.title), '')                          AS topic_title,
+    COALESCE(MAX(ts.topic_id), 0)                        AS topic_id
+FROM
+    user u
+        LEFT JOIN
+    file f_ts ON u.user_id = f_ts.owner_id AND f_ts.file_type = '选题申报表'
+        LEFT JOIN
+    topic_submission ts ON f_ts.file_id = ts.file_id
+        LEFT JOIN
+    student s ON u.user_id = s.student_id
+WHERE
+    u.role = '学生'
+GROUP BY
+    u.user_id, u.username;
+
+
+
+
+
+
+-- 学生开题报告视图
+CREATE VIEW openingView AS
+SELECT
+    u.user_id,
+    u.username,
+    IF(MAX(orp.report_id) IS NOT NULL, '已提交', '未提交') AS opening_report_status,
+    COALESCE(MAX(orp.opening_name), '')                     AS opening_report_name,
+    COALESCE(MAX(orp.report_id), 0)                         AS opening_report_id
+FROM
+    user u
+        LEFT JOIN
+    file f_or ON u.user_id = f_or.owner_id AND f_or.file_type = '开题报告'
+        LEFT JOIN
+    opening_report orp ON f_or.file_id = orp.file_id
+        LEFT JOIN
+    student s ON u.user_id = s.student_id
+WHERE
+    u.role = '学生'
+GROUP BY
+    u.user_id, u.username;
+
+
+
+

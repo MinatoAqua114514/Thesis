@@ -54,6 +54,22 @@
         <result property="thesisStatus" column="thesis_status"/>
     </resultMap>
 
+    <resultMap type="com.thesis.file.dto.topicDTO" id="topicViewMap">
+        <result property="studentId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="topicStatus" column="topic_submission_status" jdbcType="VARCHAR"/>
+        <result property="topicTitle" column="topic_title" jdbcType="VARCHAR"/>
+        <result property="topicId" column="topic_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.thesis.file.dto.openingDTO" id="openingViewMap">
+        <result property="studentId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="reportStatus" column="opening_report_status" jdbcType="VARCHAR"/>
+        <result property="reportTitle" column="opening_report_name" jdbcType="VARCHAR"/>
+        <result property="reportId" column="opening_report_id" jdbcType="INTEGER"/>
+    </resultMap>
+
 
 
     <!-- 1. 选题申报 -->
@@ -110,6 +126,10 @@
         WHERE file.owner_id = #{studentId}
     </select>
 
+    <select id="selectTopicView" resultMap="topicViewMap">
+        SELECT * FROM topicView;
+    </select>
+
 
 
 
@@ -157,6 +177,10 @@
         FROM opening_report o
         LEFT JOIN file on o.file_id = file.file_id
         WHERE file.owner_id = #{studentId}
+    </select>
+
+    <select id="selectOpeningView" resultMap="openingViewMap">
+        SELECT * FROM openingView;
     </select>
 
 

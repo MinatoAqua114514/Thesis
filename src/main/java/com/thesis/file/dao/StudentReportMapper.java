@@ -1,6 +1,8 @@
 package com.thesis.file.dao;
 
 import com.thesis.file.dto.FileStatusDTO;
+import com.thesis.file.dto.openingDTO;
+import com.thesis.file.dto.topicDTO;
 import com.thesis.file.entity.MiddleReport;
 import com.thesis.file.entity.OpeningReport;
 import com.thesis.file.entity.Thesis;
@@ -35,6 +37,8 @@ public interface StudentReportMapper {
     // 学生ID获取选题申报
     TopicSubmission selectTopicSubmissionByStudentId(@Param("studentId") Integer studentId);
 
+    List<topicDTO> selectTopicView();
+
 
     /* 2.开题报告 */
     // 提交开题报告
@@ -54,6 +58,8 @@ public interface StudentReportMapper {
 
     // 学生ID获取开题报告
     OpeningReport selectOpeningReportByStudentId(@Param("studentId") Integer studentId);
+
+    List<openingDTO> selectOpeningView();
 
 
     /* 3.中期报告 */
