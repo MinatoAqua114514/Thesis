@@ -1,6 +1,6 @@
 -- 学生详细信息视图
 create view student_details as
-select 
+select
     u.user_id,
     u.username,
     u.email,
@@ -8,13 +8,15 @@ select
     s.grade,
     s.class,
     s.advisor_id,
-    st.username as advisor_name
-from 
+    coalesce(st.username, '未分配') as advisor_name
+from
     user u
-join 
+        left join
     student s on u.user_id = s.student_id
-join
-    user st on s.advisor_id = st.user_id;
+        left join
+    user st on s.advisor_id = st.user_id
+where
+    u.role = '学生';
 
 -- 教职工详细信息视图
 create view staff_details as
