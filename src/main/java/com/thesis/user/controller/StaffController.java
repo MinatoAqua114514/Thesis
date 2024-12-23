@@ -23,7 +23,7 @@ public class StaffController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/add")
-    public ApiResponse<Void> addStaff(Staff staff) {
+    public ApiResponse<Void> addStaff(@RequestBody Staff staff) {
         try {
             staffService.addStaff(staff);
         } catch (Exception e) {

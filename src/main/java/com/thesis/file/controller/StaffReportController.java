@@ -6,6 +6,8 @@ import com.thesis.file.service.StaffReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/taskBook")
 public class StaffReportController {
@@ -20,7 +22,7 @@ public class StaffReportController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping
-    public ApiResponse<Void> addTaskBook(TaskBook taskBook) {
+    public ApiResponse<Void> addTaskBook(@RequestBody TaskBook taskBook) {
         try {
             staffReportService.addTaskBook(taskBook);
         } catch (Exception e) {
@@ -94,6 +96,21 @@ public class StaffReportController {
     }
 
     /**
+     * 获取所有任务书信息
+     *
+     * @return ApiResponse<List<TaskBook>> 包含查询结果的响应对象。若成功，data字段携带TaskBook对象列表；若失败，code和message字段携带错误信息
+     */
+    @GetMapping("/reviewer/getAllTaskBook")
+    public ApiResponse<List<TaskBook>> getAllTaskBook() {
+        try {
+            staffReportService.findAllTaskBook();
+        } catch (Exception e) {
+            return ApiResponse.error(404, e.getMessage(), null);
+        }
+        return ApiResponse.success(staffReportService.findAllTaskBook());
+    }
+
+    /**
      * 院领导审查任务书
      *
      * @param taskBook 需要更新的任务书对象，包含任务书的所有信息
@@ -107,5 +124,21 @@ public class StaffReportController {
             return ApiResponse.error(404, e.getMessage(), null);
         }
         return ApiResponse.success(null);
+    }
+
+    /**
+     * 根据指导老师ID获取任务书
+     *
+     * @param advisorId 指导老师ID，用于查询特定指导老师的任务书
+     * @return ApiResponse<List<TaskBook>> 包含查询结果的响应对象。若成功，data字段携带TaskBook对象列表；若失败，code和message字段携带错误信息
+     */
+    @GetMapping("/advisor/getTaskBook")
+    public ApiResponse<List<TaskBook>> getTaskBookByAdvisorId(Integer advisorId) {
+        try {
+            staffReportService.findTaskBookByAdvisorId(advisorId);
+        } catch (Exception e) {
+            return ApiResponse.error(404, e.getMessage(), null);
+        }
+        return ApiResponse.success(staffReportService.findTaskBookByAdvisorId(advisorId));
     }
 }

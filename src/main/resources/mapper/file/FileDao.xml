@@ -75,4 +75,9 @@
         SELECT * FROM file WHERE file_id = #{fileId};
     </select>
 
+    <!-- 根据文件路径获取文件 -->
+    <select id="selectFileByPath" resultType="com.thesis.file.entity.File">
+        SELECT * FROM file WHERE file_path = #{filePath};
+    </select>
+
 </mapper>

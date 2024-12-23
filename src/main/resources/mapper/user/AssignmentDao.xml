@@ -16,7 +16,7 @@
     </resultMap>
 
     <resultMap type="com.thesis.user.vo.AdvisorStudentsVo" id="AdvisorStudentMap">
-        <result property="staffId" column="advisor_id" jdbcType="INTEGER"/>
+        <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
         <result property="advisorName" column="advisor_name" jdbcType="VARCHAR"/>
         <result property="studentId" column="student_id" jdbcType="INTEGER"/>
         <result property="studentName" column="student_name" jdbcType="VARCHAR"/>

@@ -5,6 +5,8 @@ import com.thesis.file.entity.TaskBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StaffReportService {
 
@@ -67,6 +69,11 @@ public class StaffReportService {
         staffReportMapper.updateReviewOpinion(taskBook);
     }
 
+    // 专业负责人获取所有课题任务书信息
+    public List<TaskBook> findAllTaskBook() {
+        return staffReportMapper.selectAllTaskBook();
+    }
+
     // 院领导审查 FOR 院领导
     public void updateLeaderOpinion(TaskBook taskBook) {
         if (taskBook.getTaskId() == null) {
@@ -76,5 +83,13 @@ public class StaffReportService {
             throw new RuntimeException("该课题任务书不存在");
         }
         staffReportMapper.updateLeaderOpinion(taskBook);
+    }
+
+    // 指导老师ID获取任务书
+    public List<TaskBook> findTaskBookByAdvisorId(Integer advisorId) {
+        if (advisorId == null) {
+            throw new RuntimeException("advisorId不能为空");
+        }
+        return staffReportMapper.selectTaskBookByAdvisorId(advisorId);
     }
 }

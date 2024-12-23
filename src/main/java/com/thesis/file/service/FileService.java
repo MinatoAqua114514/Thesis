@@ -74,7 +74,7 @@ public class FileService {
 
 
 
-    public void uploadFile(File file, byte[] fileContent) throws Exception {
+    public File uploadFile(File file, byte[] fileContent) throws Exception {
         // 保存文件到本地
         java.io.File uploadDir = new java.io.File(uploadDirectory);
         if (!uploadDir.exists()) {
@@ -90,6 +90,11 @@ public class FileService {
         // 设置文件路径并插入数据库
         file.setFilePath(filePath);
         fileMapper.insertFile(file);
+
+        // 返回上传文件的ID
+        file.setFileId(fileMapper.selectFileByPath(filePath).getFileId());
+
+        return file;
     }
 
     public File getFileById(Integer fileId) {

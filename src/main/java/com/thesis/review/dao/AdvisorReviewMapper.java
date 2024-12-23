@@ -5,6 +5,8 @@ import com.thesis.review.vo.AdvisorReviewDetailsVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface AdvisorReviewMapper {
 
@@ -18,5 +20,5 @@ public interface AdvisorReviewMapper {
     void updateAdvisorReview(AdvisorReview advisorReview);
 
     // 查询指导老师审阅表
-    AdvisorReviewDetailsVo selectAdvisorReview(@Param("advisorId") Integer advisorId);
+    List<AdvisorReviewDetailsVo> selectAdvisorReview(@Param("advisorId") Integer advisorId);
 }

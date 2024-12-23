@@ -32,4 +32,15 @@
         FROM student_grades
         WHERE student_id = #{studentId}
     </select>
+
+    <!-- 指导老师ID获取指导学生成绩 -->
+    <select id="selectStudentGradesByAdvisorId" resultMap="StudentGradesMap">
+        SELECT student_id, student_name, advisor_score, reviewer_score, defense_score
+        FROM student_grades
+        WHERE student_id IN (
+            SELECT student_id
+            FROM student
+            WHERE advisor_id = #{advisorId}
+        )
+    </select>
 </mapper>

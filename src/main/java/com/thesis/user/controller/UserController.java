@@ -59,7 +59,7 @@ public class UserController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/add")
-    public ApiResponse<Void> addUser(User user) {
+    public ApiResponse<Void> addUser(@RequestBody User user) {
         try {
             userService.addUser(user);
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public class UserController {
      * @return ApiResponse<Void> 更新操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PutMapping("/update")
-    public ApiResponse<Void> updateUser(User user) {
+    public ApiResponse<Void> updateUser(@RequestBody User user) {
         try {
             userService.updateUser(user);
         } catch (Exception e) {

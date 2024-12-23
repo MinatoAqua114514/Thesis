@@ -20,7 +20,7 @@ public class StandardController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping
-    public ApiResponse<Void> addStandard(ThesisWritingStandard standard) {
+    public ApiResponse<Void> addStandard(@RequestBody ThesisWritingStandard standard) {
         try {
             standardService.addThesisWritingStandard(standard);
         } catch (Exception e) {

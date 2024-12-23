@@ -6,6 +6,8 @@ import com.thesis.review.vo.StudentGradesVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/grade")
 public class GradeController {
@@ -35,7 +37,7 @@ public class GradeController {
      * @return 所有学生成绩信息，成功则返回状态码200及成绩信息，失败则返回错误状态码及异常信息
      */
     @GetMapping("/all")
-    public ApiResponse<StudentGradesVo> getAllStudentGrades() {
+    public ApiResponse<List<StudentGradesVo>> getAllStudentGrades() {
         try {
             return ApiResponse.success(gradeService.findAllStudentGrades());
         } catch (Exception e) {

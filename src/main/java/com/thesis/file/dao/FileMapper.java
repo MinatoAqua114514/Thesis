@@ -32,4 +32,7 @@ public interface FileMapper {
 
     // 根据文件ID获取文件信息
     File getFileById(Integer fileId);
+
+    // 根据文件路径查找文件
+    File selectFileByPath(String filePath);
 }

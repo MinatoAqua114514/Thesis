@@ -7,6 +7,8 @@ import com.thesis.review.vo.AdvisorReviewDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/advisorReview")
 public class AdvisorReviewController {
@@ -69,7 +71,7 @@ public class AdvisorReviewController {
      * @return 指导老师审阅信息查询结果，成功则返回状态码200及查询到的审阅信息，失败则返回错误状态码及异常信息
      */
     @GetMapping("/{advisorId}")
-    public ApiResponse<AdvisorReviewDetailsVo> getAdvisorReview(@PathVariable Integer advisorId) {
+    public ApiResponse<List<AdvisorReviewDetailsVo>> getAdvisorReview(@PathVariable Integer advisorId) {
         try {
             return ApiResponse.success(advisorReviewService.findAdvisorReview(advisorId));
         } catch (Exception e) {

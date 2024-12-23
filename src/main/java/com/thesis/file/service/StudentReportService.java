@@ -1,19 +1,24 @@
 package com.thesis.file.service;
 
-import com.thesis.file.dao.FileMapper;
+import com.thesis.file.dto.FileStatusDTO;
 import com.thesis.file.dao.StudentReportMapper;
 import com.thesis.file.entity.MiddleReport;
 import com.thesis.file.entity.OpeningReport;
 import com.thesis.file.entity.Thesis;
 import com.thesis.file.entity.TopicSubmission;
+import com.thesis.user.dao.StaffMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StudentReportService {
 
     @Autowired
     private StudentReportMapper studentReportMapper;
+    @Autowired
+    private StaffMapper staffMapper;
 
     /* 1.选题申报 */
     // 提交选题申报描述信息等 FOR 学生
@@ -266,5 +271,22 @@ public class StudentReportService {
             throw new RuntimeException("该学生未提交论文");
         }
         return studentReportMapper.selectThesisByStudentId(studentId);
+    }
+
+    // 指导老师ID获取指导学生所有文件状态和评分
+    public List<FileStatusDTO> findStudentReportStatusByAdvisor(Integer advisorId) {
+        if (advisorId == null) {
+            throw new RuntimeException("advisorId不能为空");
+        }
+        // 指导老师不存在
+        if (staffMapper.selectStaffById(advisorId) == null) {
+            throw new RuntimeException("该指导老师不存在");
+        }
+        return studentReportMapper.selectStudentSubmissionStatusByTeacherId(advisorId);
+    }
+
+    // 获取所有学生文件状态和评分
+    public List<FileStatusDTO> findAllStudentReportStatus() {
+        return studentReportMapper.selectAllStudentSubmissionStatus();
     }
 }

@@ -38,6 +38,22 @@
         <result property="fileId" column="file_id" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap type="com.thesis.file.dto.FileStatusDTO" id="FileStatusDTOMap">
+        <result property="studentId" column="user_id" jdbcType="INTEGER"/>
+        <result property="studentName" column="username" jdbcType="VARCHAR"/>
+        <result property="advisorScore" column="advisor_review_score" jdbcType="INTEGER"/>
+        <result property="reviewerScore" column="reviewer_review_score" jdbcType="INTEGER"/>
+        <result property="defenseScore" column="defense_review_score" jdbcType="INTEGER"/>
+        <result property="submissionTitle" column="topic_title" jdbcType="VARCHAR"/>
+        <result property="submissionStatus" column="topic_submission_status" jdbcType="VARCHAR"/>
+        <result property="openingTitle" column="opening_report_name"/>
+        <result property="openingStatus" column="opening_report_status"/>
+        <result property="middleTitle" column="middle_report_name"/>
+        <result property="middleStatus" column="middle_report_status"/>
+        <result property="thesisTitle" column="thesis_name"/>
+        <result property="thesisStatus" column="thesis_status"/>
+    </resultMap>
+
 
 
     <!-- 1. 选题申报 -->
@@ -222,4 +238,20 @@
         LEFT JOIN file on t.file_id = file.file_id
         WHERE file.owner_id = #{studentId}
     </select>
+
+    <!-- 根据指导老师ID从student_submission_status视图获取学生文件和成绩的信息 -->
+    <select id="selectStudentSubmissionStatusByTeacherId" resultMap="FileStatusDTOMap" parameterType="int">
+        SELECT *
+        FROM student_submission_status s
+        LEFT JOIN student stu on s.user_id = stu.student_id
+        WHERE stu.advisor_id = #{advisorId}
+    </select>
+
+    <!-- 获取student_submission_status视图所有信息，并根据user_id升序排序 -->
+    <select id="selectAllStudentSubmissionStatus" resultMap="FileStatusDTOMap">
+        SELECT *
+        FROM student_submission_status s
+        ORDER BY s.user_id
+    </select>
+
 </mapper>

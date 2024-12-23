@@ -1,6 +1,7 @@
 package com.thesis.file.controller;
 
 import com.thesis.common.response.ApiResponse;
+import com.thesis.file.dto.FileStatusDTO;
 import com.thesis.file.entity.MiddleReport;
 import com.thesis.file.entity.OpeningReport;
 import com.thesis.file.entity.Thesis;
@@ -8,6 +9,8 @@ import com.thesis.file.entity.TopicSubmission;
 import com.thesis.file.service.StudentReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/studentReport")
@@ -23,7 +26,7 @@ public class StudentReportController {
      * @return 返回操作结果，成功时提供成功信息，失败时返回错误代码及描述。
      */
     @PostMapping("/submission")
-    public ApiResponse<Void> submitReport(TopicSubmission topicSubmission) {
+    public ApiResponse<Void> submitReport(@RequestBody TopicSubmission topicSubmission) {
         try {
             studentReportService.addTopicSubmission(topicSubmission);
         } catch (Exception e) {
@@ -139,7 +142,7 @@ public class StudentReportController {
      * @return ApiResponse<Void> 如果成功添加，则返回带有成功状态的ApiResponse，否则返回错误状态的ApiResponse，其中包含错误码和错误信息
      */
     @PostMapping("/opening")
-    public ApiResponse<Void> addOpeningReport(OpeningReport openingReport) {
+    public ApiResponse<Void> addOpeningReport(@RequestBody OpeningReport openingReport) {
         try {
             studentReportService.addOpeningReport(openingReport);
         } catch (Exception e) {
@@ -238,7 +241,7 @@ public class StudentReportController {
      * @return ApiResponse<Void> 如果成功添加，则返回带有成功状态的ApiResponse，否则返回错误状态的ApiResponse，其中包含错误码和错误信息
      */
     @PostMapping("/middle")
-    public ApiResponse<Void> addMiddleReport(MiddleReport middleReport) {
+    public ApiResponse<Void> addMiddleReport(@RequestBody MiddleReport middleReport) {
         try {
             studentReportService.addMiddleReport(middleReport);
         } catch (Exception e) {
@@ -321,7 +324,7 @@ public class StudentReportController {
      * @return ApiResponse<Void> 如果成功添加，则返回带有成功状态的ApiResponse，否则返回错误状态的ApiResponse，其中包含错误码和错误信息
      */
     @PostMapping("/thesis")
-    public ApiResponse<Void> addThesis(Thesis thesis) {
+    public ApiResponse<Void> addThesis(@RequestBody Thesis thesis) {
         try {
             studentReportService.addThesis(thesis);
         } catch (Exception e) {
@@ -387,6 +390,41 @@ public class StudentReportController {
     public ApiResponse<Thesis> getThesisByStudentId(int studentId) {
         try {
             return ApiResponse.success(studentReportService.findThesisByStudentId(studentId));
+        } catch (Exception e) {
+            return ApiResponse.error(404, e.getMessage(), null);
+        }
+    }
+
+
+
+
+
+
+    /**
+     * 指导老师ID获取学生报告状态和成绩
+     *
+     * @param advisorId 指导老师ID
+     * @return ApiResponse<List<FileStatusDTO>> 包含查询结果的响应对象。若成功，data字段携带FileStatusDTO对象列表；若失败，code和message字段携带错误信息
+     */
+    @GetMapping("/status/advisor")
+    public ApiResponse<List<FileStatusDTO>> getStudentReportStatusByAdvisor(int advisorId) {
+        try {
+            return ApiResponse.success(studentReportService.findStudentReportStatusByAdvisor(advisorId));
+        } catch (Exception e) {
+            return ApiResponse.error(404, e.getMessage(), null);
+        }
+    }
+
+    /**
+     * 获取所有学生报告状态和成绩
+     *
+     *
+     * @return ApiResponse<List<FileStatusDTO>> 包含查询结果的响应对象。若成功，data字段携带FileStatusDTO对象列表；若失败，code和message字段携带错误信息
+     */
+    @GetMapping("/status/all")
+    public ApiResponse<List<FileStatusDTO>> getAllStudentReportStatus() {
+        try {
+            return ApiResponse.success(studentReportService.findAllStudentReportStatus());
         } catch (Exception e) {
             return ApiResponse.error(404, e.getMessage(), null);
         }

@@ -141,7 +141,7 @@ select
     s.student_id,
     u.username as student_name,
     ar.score as advisor_score,
-    rr.is_pass as reviewer_score,
+    rr.score as reviewer_score,
     dr.score as defense_score
 from 
     student s
@@ -153,3 +153,63 @@ left join
     reviewer_review rr on s.student_id = rr.student_id
 left join 
     defense_review dr on s.student_id = dr.student_id;
+
+
+-- 学生文件状态信息和成绩视图
+CREATE VIEW student_submission_status AS
+SELECT
+    u.user_id,
+    u.username,
+    CASE
+        WHEN MAX(ts.topic_id) IS NOT NULL THEN '已提交'
+        ELSE '未提交'
+        END AS topic_submission_status,
+    COALESCE(MAX(ts.title), '') AS topic_title,
+    CASE
+        WHEN MAX(orp.report_id) IS NOT NULL THEN '已提交'
+        ELSE '未提交'
+        END AS opening_report_status,
+    COALESCE(MAX(orp.opening_name), '') AS opening_report_name,
+    CASE
+        WHEN MAX(mr.report_id) IS NOT NULL THEN '已提交'
+        ELSE '未提交'
+        END AS middle_report_status,
+    COALESCE(MAX(mr.middle_name), '') AS middle_report_name,
+    CASE
+        WHEN MAX(th.thesis_id) IS NOT NULL THEN '已提交'
+        ELSE '未提交'
+        END AS thesis_status,
+    COALESCE(MAX(th.thesis_name), '') AS thesis_name,
+    MAX(ar.score) AS advisor_review_score,
+    MAX(rr.score) AS reviewer_review_score,
+    MAX(dr.score) AS defense_review_score
+FROM
+    user u
+        LEFT JOIN
+    file f_ts ON u.user_id = f_ts.owner_id AND f_ts.file_type = '选题申报表'
+        LEFT JOIN
+    topic_submission ts ON f_ts.file_id = ts.file_id
+        LEFT JOIN
+    file f_or ON u.user_id = f_or.owner_id AND f_or.file_type = '开题报告'
+        LEFT JOIN
+    opening_report orp ON f_or.file_id = orp.file_id
+        LEFT JOIN
+    file f_mr ON u.user_id = f_mr.owner_id AND f_mr.file_type = '中期报告'
+        LEFT JOIN
+    middle_report mr ON f_mr.file_id = mr.file_id
+        LEFT JOIN
+    file f_th ON u.user_id = f_th.owner_id AND f_th.file_type = '论文'
+        LEFT JOIN
+    thesis th ON f_th.file_id = th.file_id
+        LEFT JOIN
+    student s ON u.user_id = s.student_id
+        LEFT JOIN
+    advisor_review ar ON s.student_id = ar.student_id
+        LEFT JOIN
+    reviewer_review rr ON s.student_id = rr.student_id
+        LEFT JOIN
+    defense_review dr ON s.student_id = dr.student_id
+WHERE
+    u.role = '学生'
+GROUP BY
+    u.user_id, u.username;

@@ -1,6 +1,7 @@
 package com.thesis.user.service;
 
 import com.thesis.user.dao.StaffMapper;
+import com.thesis.user.dao.UserMapper;
 import com.thesis.user.entity.Staff;
 import com.thesis.user.vo.StaffDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,16 @@ public class StaffService {
 
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     // 添加教职工信息 FOR 管理员
     public void addStaff(Staff staff) {
+        // 判断staffID是否是教职工角色
+        String staffRole = userMapper.getUserInfo(staff.getStaffId()).getRole();
+        if (!staffRole.equals("staff")) {
+            throw new RuntimeException("添加失败，该ID不是教职工");
+        }
         if (staffMapper.existsById(staff.getStaffId())) {
             throw new RuntimeException("添加失败，教职工已存在");
         }

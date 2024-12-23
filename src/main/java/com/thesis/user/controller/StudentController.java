@@ -23,7 +23,7 @@ public class StudentController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/add")
-    public ApiResponse<Void> addStudent(Student student) {
+    public ApiResponse<Void> addStudent(@RequestBody Student student) {
         try {
             studentService.addStudent(student);
         } catch (Exception e) {

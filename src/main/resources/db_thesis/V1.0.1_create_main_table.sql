@@ -8,7 +8,7 @@ use thesis;
 -- 用户表
 create table if not exists user
 (
-    user_id int primary key, -- 主键，用户编号(教职工号/学号)
+    user_id int auto_increment primary key, -- 主键，用户编号(教职工号/学号)
     username varchar(255) not null, -- 姓名
     password varchar(255) not null default '111111', -- 密码(用于登录系统)
     email varchar(255) default null, -- 邮箱(非必需)

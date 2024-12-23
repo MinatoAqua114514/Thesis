@@ -27,7 +27,7 @@ public class AssignmentController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/assignStudent")
-    public ApiResponse<Void> assignStudentToAdvisor(int studentId, int advisorId) {
+    public ApiResponse<Void> assignStudentToAdvisor(@RequestParam int studentId, @RequestParam int advisorId) {
         try {
             assignmentService.assignStudentToAdvisor(studentId, advisorId);
         } catch (Exception e) {
@@ -112,7 +112,7 @@ public class AssignmentController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/addDefenseGroup")
-    public ApiResponse<Void> addDefenseGroup(DefenseGroup defenseGroup) {
+    public ApiResponse<Void> addDefenseGroup(@RequestBody DefenseGroup defenseGroup) {
         try {
             assignmentService.addDefenseGroup(defenseGroup);
         } catch (Exception e) {
@@ -195,7 +195,7 @@ public class AssignmentController {
      * @return ApiResponse<Void> 添加操作的响应结果。成功时，返回状态码200；失败时，返回状态码404及错误信息
      */
     @PostMapping("/addMember")
-    public ApiResponse<Void> addDefenseGroupMember(DefenseGroupMember defenseGroupMember) {
+    public ApiResponse<Void> addDefenseGroupMember(@RequestBody DefenseGroupMember defenseGroupMember) {
         try {
             assignmentService.addDefenseGroupMember(defenseGroupMember);
         } catch (Exception e) {

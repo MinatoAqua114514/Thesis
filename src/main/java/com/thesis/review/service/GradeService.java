@@ -5,6 +5,8 @@ import com.thesis.review.vo.StudentGradesVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GradeService {
 
@@ -24,12 +26,17 @@ public class GradeService {
     }
 
     // 获取所有学生成绩 FOR 管理员、专业负责人、院领导、评阅教师
-    public StudentGradesVo findAllStudentGrades() {
+    public List<StudentGradesVo> findAllStudentGrades() {
         return gradeMapper.selectAllStudentGrades();
     }
 
     // ID查询单个学生成绩 FOR All
     public StudentGradesVo findStudentGradesById(Integer studentId) {
         return gradeMapper.selectStudentGradesById(studentId);
+    }
+
+    // 指导老师ID获取指导学生成绩
+    public List<StudentGradesVo> findStudentGradesByAdvisorId(Integer advisorId) {
+        return gradeMapper.selectStudentGradesByAdvisorId(advisorId);
     }
 }

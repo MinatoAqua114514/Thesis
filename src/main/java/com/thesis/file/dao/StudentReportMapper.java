@@ -1,11 +1,14 @@
 package com.thesis.file.dao;
 
+import com.thesis.file.dto.FileStatusDTO;
 import com.thesis.file.entity.MiddleReport;
 import com.thesis.file.entity.OpeningReport;
 import com.thesis.file.entity.Thesis;
 import com.thesis.file.entity.TopicSubmission;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface StudentReportMapper {
@@ -86,4 +89,12 @@ public interface StudentReportMapper {
 
     // 学生ID获取论文
     Thesis selectThesisByStudentId(@Param("studentId") Integer studentId);
+
+
+
+    // 获取指导老师的学生文件的状态
+    List<FileStatusDTO> selectStudentSubmissionStatusByTeacherId(@Param("advisorId") Integer advisorId);
+
+    // 获取所有学生文件的状态
+    List<FileStatusDTO> selectAllStudentSubmissionStatus();
 }

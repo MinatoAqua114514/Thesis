@@ -40,7 +40,7 @@ public class FileController {
      *                  失败时，状态码为400，消息中包含失败原因。
      */
     @PostMapping("/upload")
-    public ApiResponse<String> uploadFile(
+    public ApiResponse<File> uploadFile(
             @RequestParam("file") MultipartFile file,
             @RequestParam("ownerId") Integer ownerId,
             @RequestParam("fileType") String fileType
@@ -54,8 +54,8 @@ public class FileController {
             fileEntity.setVersion(1);
 
             // 调用服务保存文件
-            fileService.uploadFile(fileEntity, file.getBytes());
-            return ApiResponse.success("File uploaded successfully!");
+            File uploadedFile = fileService.uploadFile(fileEntity, file.getBytes());
+            return ApiResponse.success(uploadedFile);
         } catch (Exception e) {
             return ApiResponse.error(400, e.getMessage(), null);
         }
