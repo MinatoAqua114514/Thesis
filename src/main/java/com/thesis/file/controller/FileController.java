@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +81,8 @@ public class FileController {
         try {
             // 获取文件信息
             File file = fileService.getFileById(fileId);
-            if (file == null) {
+
+            if (file == null || file.getFilePath() == null || file.getFilePath().isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
 
@@ -102,7 +104,8 @@ public class FileController {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(new InputStreamResource(fileInputStream));
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().build();
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

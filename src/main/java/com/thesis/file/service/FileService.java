@@ -102,10 +102,10 @@ public class FileService {
     }
 
     public File getFileById(Integer fileId) {
-        if (fileMapper.getFileById(fileId) == null) {
+        if (fileMapper.selectFileById(fileId) == null) {
             throw new RuntimeException("未找到文件ID为: " + fileId + "的文件");
         }
-        return fileMapper.getFileById(fileId); // 从数据库查询文件信息
+        return fileMapper.selectFileById(fileId); // 从数据库查询文件信息
     }
 
     // 根据文件路径查找文件ID

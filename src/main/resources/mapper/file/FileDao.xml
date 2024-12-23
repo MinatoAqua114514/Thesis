@@ -6,13 +6,13 @@
     <!-- ResultMap -->
     <resultMap type="com.thesis.file.entity.File" id="FileMap">
         <result property="fileId" column="file_id" jdbcType="INTEGER"/>
+        <result property="ownerId" column="owner_id" jdbcType="INTEGER"/>
         <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
+        <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
         <result property="fileType" column="file_type" jdbcType="VARCHAR"/>
         <result property="version" column="version" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="ownerId" column="owner_id" jdbcType="INTEGER"/>
-        <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap type="com.thesis.file.vo.StudentFilesVo" id="StudentFileMap">
