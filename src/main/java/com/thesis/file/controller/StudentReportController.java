@@ -107,7 +107,7 @@ public class StudentReportController {
      * @return 如果操作成功，则返回成功响应，否则返回错误代码404及异常信息。
      */
     @PutMapping("/submission/reviewer")
-    public ApiResponse<Void> updateReviewer(TopicSubmission topicSubmission) {
+    public ApiResponse<Void> updateReviewer(@RequestBody TopicSubmission topicSubmission) {
         try {
             studentReportService.updateReviewOpinion(topicSubmission);
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class StudentReportController {
      * @return 如果操作成功，则返回成功响应，否则返回错误代码404及异常信息。
      */
     @PutMapping("/submission/leader")
-    public ApiResponse<Void> updateLeader(TopicSubmission topicSubmission) {
+    public ApiResponse<Void> updateLeader(@RequestBody TopicSubmission topicSubmission) {
         try {
             studentReportService.updateLeaderOpinion(topicSubmission);
         } catch (Exception e) {
@@ -238,7 +238,7 @@ public class StudentReportController {
      * @return ApiResponse<Void> 如果成功更新，则返回带有成功状态的ApiResponse，否则返回错误状态的ApiResponse，其中包含错误码和错误信息
      */
     @PutMapping("/opening/reviewer")
-    public ApiResponse<Void> updateOpeningReviewer(OpeningReport openingReport) {
+    public ApiResponse<Void> updateOpeningReviewer(@RequestBody OpeningReport openingReport) {
         try {
             studentReportService.updateOpeningReviewOpinion(openingReport);
         } catch (Exception e) {
